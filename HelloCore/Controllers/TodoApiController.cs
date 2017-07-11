@@ -1,4 +1,5 @@
 ﻿using HelloCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace HelloCore.Controllers
 {
+    [Authorize(ActiveAuthenticationSchemes = "Bearer")]
     [Route("/api/[controller]")]
     public class TodoApiController : Controller
     {
