@@ -1,0 +1,22 @@
+
+@model HelloCore.Models.Todo
+
+<h2>Edit</h2>
+
+<form asp-controller="Todo" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input type="text" class="form-control" asp-for="Title">
+    </div>
+    <div class="form-group">
+        <label asp-for="Done"></label>
+        <input type="checkbox" class="form-control" asp-for="Done">
+    </div>
+<div class="form-group">
+    <label asp-for="TaskType"></label>
+    <select asp-for="TaskType" asp-items="Html.GetEnumSelectList<HelloCore.Models.Typex>()"></select>
+
+</div>
+    
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

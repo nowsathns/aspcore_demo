@@ -1,0 +1,44 @@
+@using HelloCore.Models
+@model IEnumerable<HelloCore.Models.Todo>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-striped">
+
+    <tr>
+        <td>Title</td>
+        <td>Done</td>
+        <td>TaskTyoe</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    @foreach (var x in Model)
+    {
+
+        <tr>
+            <td><label asp-for="@x.Title">@x.Title</label></td>
+            <td><label asp-for="@x.Done">@x.Done</label></td>
+            <td>
+                <label asp-for="@x.TaskType"></label>
+                <select asp-for="@x.TaskType" asp-items="Html.GetEnumSelectList<Typex>()"></select>
+            </td>
+            <td>
+                <a asp-controller="Todo" asp-route-id="@x.Id"
+                   asp-action="Details">Details</a>
+
+            </td>
+            <td>
+                <a asp-controller="Todo" asp-route-id="@x.Id"
+                   asp-action="Edit">Edit</a>
+
+            </td>
+            <td>
+                <a asp-controller="Todo" class="btn-danger" asp-route-id="@x.Id" asp-action="Delete">Delete</a>
+            </td>
+        </tr>
+
+    }
+</table>
