@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,11 +7,11 @@ using Microsoft.Extensions.Logging;
 using HelloCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Swashbuckle.Swagger.Application;
 
 namespace HelloCore
 {
@@ -36,12 +33,14 @@ namespace HelloCore
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddSwaggerGen();
             services.Configure<JWTSettings>(Configuration.GetSection("JWTSettings"));
 
+            services.AddScoped<IRepository, TodoRepository>();
             // services.AddEntityFramework().AddDbContext<UserDbContext>(opt => opt.UseInMemoryDatabase());
             // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
             // services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase());
-
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<TodoContext>();
             var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;";
             services.AddDbContext<TodoContext>(options => options.UseSqlServer(connection));
 
@@ -57,10 +56,10 @@ namespace HelloCore
                     }
                 };
             });
-
+           
             // Add framework services.
             services.AddMvc();
-
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +70,7 @@ namespace HelloCore
 
             app.UseExceptionHandler();
             app.UseIdentity();
+            app.UseStaticFiles();
 
             // secretKey contains a secret passphrase only your server knows
             var secretKey = Configuration.GetSection("JWTSettings:SecretKey").Value;
@@ -102,8 +102,15 @@ namespace HelloCore
                 AutomaticChallenge = false
             });
 
+            app.UseSwagger();
+            app.UseSwaggerUi();
 
-            app.UseMvc();
+            app.UseMvc(routes=>
+            {
+                routes.MapRoute(name: "Default", template: "{controller=Todo}/{action=Index}/{id?}");
+            });
+         
         }
+
     }
 }

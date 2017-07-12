@@ -22,7 +22,7 @@
             <td><label asp-for="@x.Done">@x.Done</label></td>
             <td>
                 <label asp-for="@x.TaskType"></label>
-                <select asp-for="@x.TaskType" asp-items="Html.GetEnumSelectList<Typex>()"></select>
+                <select asp-for="@x.TaskType" asp-items="Html.GetEnumSelectList<TaskType>()"></select>
             </td>
             <td>
                 <a asp-controller="Todo" asp-route-id="@x.Id"

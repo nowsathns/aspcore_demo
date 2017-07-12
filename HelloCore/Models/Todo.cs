@@ -5,10 +5,10 @@
         public int Id { get; set; }
         public string Title { get; set; }
         public bool Done { get; set; }
-        public Type TaskType { get; set; }
+        public TaskType TaskType { get; set; }
     }
 
-    public enum Type
+    public enum TaskType
     {
         High,
         Low,
