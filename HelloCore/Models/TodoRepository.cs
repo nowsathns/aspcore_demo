@@ -9,7 +9,7 @@ namespace HelloCore.Models
     {
         static List<Todo> _items = new List<Todo>()
         {
-            new Todo{Title="Santosh",Done=false,Id=1,TaskType=Typex.High}
+            new Todo{Title="Santosh",Done=false,Id=1,TaskType=Type.High}
         };
         public void Add(Todo item)
         {

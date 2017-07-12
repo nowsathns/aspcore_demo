@@ -21,7 +21,7 @@ namespace HelloCore.Controllers
 
             if (_context.Todos.Count() == 0)
             {
-                _context.Todos.Add(new Todo { TaskType = Typex.High, Title = "Item1", Done = false });
+                _context.Todos.Add(new Todo { TaskType = Models.Type.High, Title = "Item1", Done = false });
                 _context.SaveChanges();
             }
         }

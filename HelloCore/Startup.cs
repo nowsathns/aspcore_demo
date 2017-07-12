@@ -38,13 +38,12 @@ namespace HelloCore
 
             services.Configure<JWTSettings>(Configuration.GetSection("JWTSettings"));
 
-            services.AddEntityFramework()
-                    .AddDbContext<UserDbContext>(opt => opt.UseInMemoryDatabase());
+            // services.AddEntityFramework().AddDbContext<UserDbContext>(opt => opt.UseInMemoryDatabase());
+            // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+            // services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase());
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                    .AddEntityFrameworkStores<UserDbContext>();
-
-            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase());
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;";
+            services.AddDbContext<TodoContext>(options => options.UseSqlServer(connection));
 
             services.Configure<IdentityOptions>(options =>
             {

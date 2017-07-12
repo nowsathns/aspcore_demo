@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 
 namespace HelloCore.Models
 {
-    public class TodoContext:DbContext
+    public class TodoContext : IdentityDbContext<IdentityUser>
     {
-        public TodoContext(DbContextOptions<TodoContext> options):base(options)
+        
+        public TodoContext(DbContextOptions<TodoContext> options) : base(options)
         {
 
         }
         public DbSet<Todo> Todos { get; set; }
     }
-    public class UserDbContext : IdentityDbContext<IdentityUser>
-    {
-        public UserDbContext(DbContextOptions<UserDbContext> options)
-                : base(options)
-        {
-            Database.EnsureCreated();
-        }
-    }
+    //public class UserDbContext : IdentityDbContext<IdentityUser>
+    //{
+    //    public UserDbContext(DbContextOptions<UserDbContext> options)
+    //            : base(options)
+    //    {
+    //        Database.EnsureCreated();
+    //    }
+    //}
 }
